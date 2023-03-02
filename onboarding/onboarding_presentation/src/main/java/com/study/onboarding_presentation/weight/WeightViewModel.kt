@@ -1,4 +1,4 @@
-package com.study.onboarding_presentation.age
+package com.study.onboarding_presentation.weight
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -6,7 +6,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.study.core.domain.preferences.Preferences
-import com.study.core.domain.use_cases.FilterOutDigits
 import com.study.core.util.UiEvent
 import com.study.core.util.UiText
 import com.study.core.R
@@ -18,33 +17,32 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AgeScreenViewModel @Inject constructor(
-    private val preferences: Preferences,
-    private val filterOutDigits: FilterOutDigits
+class WeightViewModel @Inject constructor(
+    private val preferences: Preferences
 ) : ViewModel() {
 
-    var age by mutableStateOf("20")
+    var weight by mutableStateOf("70.6")
         private set
 
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
-    fun onAgeEnter(age: String) {
-        if (age.length <= 3) {
-            this.age = filterOutDigits(text = age)
+    fun onWeightEnter(weight: String) {
+        if (weight.length <= 4) {
+            this.weight = weight
         }
     }
 
     fun onNextClick(){
         viewModelScope.launch {
-            val ageNumber = age.toIntOrNull() ?: kotlin.run {
+            val weightNumber = weight.toFloatOrNull() ?: kotlin.run {
                 _uiEvent.send(
-                    UiEvent.ShowSnackBar(UiText.StringResource(R.string.error_age_cant_be_empty))
+                    UiEvent.ShowSnackBar(UiText.StringResource(R.string.error_weight_cant_be_empty))
                 )
                 return@launch
             }
-            preferences.saveAge(ageNumber)
-            _uiEvent.send(UiEvent.Navigate(route = Route.HEIGHT))
+            preferences.saveWeight(weightNumber)
+            _uiEvent.send(UiEvent.Navigate(route = Route.ACTIVITY))
         }
     }
 
