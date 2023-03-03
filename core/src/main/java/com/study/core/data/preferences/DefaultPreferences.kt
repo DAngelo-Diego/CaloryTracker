@@ -14,6 +14,7 @@ import com.study.core.domain.preferences.Preferences.Companion.KEY_GENDER
 import com.study.core.domain.preferences.Preferences.Companion.KEY_GOAL_TYPE
 import com.study.core.domain.preferences.Preferences.Companion.KEY_HEIGHT
 import com.study.core.domain.preferences.Preferences.Companion.KEY_PROTEIN_RATIO
+import com.study.core.domain.preferences.Preferences.Companion.KEY_SHOULD_SHOW_ONBOARDING
 import com.study.core.domain.preferences.Preferences.Companion.KEY_WEIGHT
 
 class DefaultPreferences(
@@ -81,5 +82,13 @@ class DefaultPreferences(
             fatRatio = fatRatio
         )
 
+    }
+
+    override fun saveShouldShowOnBoarding(shouldShow: Boolean) {
+        return sharedPref.edit().putBoolean(KEY_SHOULD_SHOW_ONBOARDING, shouldShow).apply()
+    }
+
+    override fun loadShouldShowOnBoarding(): Boolean {
+        return sharedPref.getBoolean(KEY_SHOULD_SHOW_ONBOARDING, true)
     }
 }
