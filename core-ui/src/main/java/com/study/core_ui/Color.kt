@@ -1,4 +1,4 @@
-package com.study.tracker.ui.theme
+package com.study.core_ui
 
 import androidx.compose.ui.graphics.Color
 
