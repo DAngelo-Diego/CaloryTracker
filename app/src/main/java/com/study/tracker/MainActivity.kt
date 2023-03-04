@@ -22,6 +22,7 @@ import com.study.onboarding_presentation.weight.WeightScreen
 import com.study.onboarding_presentation.welcome.WelcomeScreen
 import com.study.tracker.navigation.navigate
 import com.study.tracker.ui.theme.CaloryTrackerTheme
+import com.study.tracker_presentation.tracker_overview.TrackerOverviewScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -82,7 +83,7 @@ class MainActivity : ComponentActivity() {
                                 GoalScreen(onNavigate = navController::navigate)
                             }
                             composable(Route.TRACKER_OVERVIEW) {
-
+                                TrackerOverviewScreen(onNavigate = navController::navigate)
                             }
                             composable(Route.SEARCH) {
 
