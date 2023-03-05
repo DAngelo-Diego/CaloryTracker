@@ -1,25 +1,19 @@
 package com.study.onboarding_presentation.age
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.BottomSheetScaffoldState
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.study.core.R
-import com.study.core.domain.model.Gender
 import com.study.core.util.UiEvent
 import com.study.core_ui.LocalSpacing
 import com.study.onboarding_presentation.components.ActionButton
-import com.study.onboarding_presentation.components.SelectableButton
 import com.study.onboarding_presentation.components.UnitTextField
 import kotlinx.coroutines.flow.collect
 
@@ -27,14 +21,14 @@ import kotlinx.coroutines.flow.collect
 fun AgeScreen(
   scaffoldState: ScaffoldState,
   viewModel: AgeScreenViewModel = hiltViewModel(),
-  onNavigate: (UiEvent.Navigate) -> Unit
+  onNextClick: () -> Unit
 ) {
   val context = LocalContext.current
   val spacing = LocalSpacing.current
   LaunchedEffect(key1 = true) {
     viewModel.uiEvent.collect { event ->
       when(event) {
-        is UiEvent.Navigate -> onNavigate(event)
+        is UiEvent.Success -> onNextClick()
         is UiEvent.ShowSnackBar -> {
           scaffoldState.snackbarHostState.showSnackbar(
             //here we unwrapped the UiText

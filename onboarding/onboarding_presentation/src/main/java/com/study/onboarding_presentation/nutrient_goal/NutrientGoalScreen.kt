@@ -21,14 +21,14 @@ import kotlinx.coroutines.flow.collect
 fun NutrientGoalScreen(
   scaffoldState: ScaffoldState,
   viewModel: NutrientGoalViewModel = hiltViewModel(),
-  onNavigate: (UiEvent.Navigate) -> Unit
+  onNextClick: () -> Unit
 ) {
   val context = LocalContext.current
   val spacing = LocalSpacing.current
   LaunchedEffect(key1 = true) {
     viewModel.uiEvent.collect { event ->
       when(event) {
-        is UiEvent.Navigate -> onNavigate(event)
+        is UiEvent.Success -> onNextClick()
         is UiEvent.ShowSnackBar -> {
           scaffoldState.snackbarHostState.showSnackbar(
             //here we unwrapped the UiText

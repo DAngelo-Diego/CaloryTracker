@@ -1,4 +1,4 @@
-package com.study.core.navigation
+package com.study.tracker.navigation
 
 object Route {
     const val WELCOME = "welcome"
